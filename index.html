@@ -64,21 +64,28 @@
       position: relative;
     }
 
-    #popup-close {
+    #calculator-lock {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--text-secondary);
-      padding: 0.25rem;
+      inset: 0;
+      border-radius: 12px;
+      background: rgba(245, 236, 215, 0.65);
       display: flex;
       align-items: center;
-      line-height: 1;
-      transition: color 0.15s;
+      justify-content: center;
+      z-index: 10;
+      cursor: pointer;
     }
-    #popup-close:hover { color: var(--text-primary); }
+
+    #calculator-lock p {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: center;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      background: var(--bg-card);
+    }
 
     .popup-brand {
       font-size: 0.65rem;
@@ -261,6 +268,7 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 1.5rem;
+      position: relative;
     }
 
     .input-grid {
@@ -552,11 +560,6 @@
   <!-- ── POPUP DE CAPTURA DE LEADS ── -->
   <div id="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popup-title">
     <div id="popup-modal">
-      <button id="popup-close" aria-label="Fechar" type="button">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <path d="M2 2l14 14M16 2L2 16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
-        </svg>
-      </button>
       <p class="popup-brand">Meu Ateliê Lucrativo</p>
       <h2 id="popup-title">Antes de calcular…</h2>
       <p class="popup-sub">Deixe seus dados e receba dicas de precificação direto no WhatsApp — de graça.</p>
@@ -603,6 +606,9 @@
   <main>
 
     <section id="inputs">
+      <div id="calculator-lock">
+        <p>Preencha seus dados para calcular</p>
+      </div>
       <p class="section-label">Dados do seu produto</p>
       <div class="input-grid">
         <div class="field">
@@ -782,24 +788,28 @@
       el.addEventListener('input', recalculate)
     );
 
-    // ── POPUP: aparece no 1º toque em qualquer campo da calculadora ──
-    const overlay   = document.getElementById('popup-overlay');
-    const popupForm = document.getElementById('popup-form');
+    // ── POPUP + LOCK ──
+    const overlay    = document.getElementById('popup-overlay');
+    const popupForm  = document.getElementById('popup-form');
+    const calcLock   = document.getElementById('calculator-lock');
 
     function showPopup() {
       overlay.classList.add('visible');
-      document.getElementById('inputs').removeEventListener('focusin', showPopup);
       setTimeout(() => {
         const first = document.getElementById('popup-nome');
         if (first) first.focus();
       }, 100);
     }
 
-    document.getElementById('inputs').addEventListener('focusin', showPopup);
+    function unlockCalculator() {
+      calcLock.style.display = 'none';
+    }
 
-    document.getElementById('popup-close').addEventListener('click', () => {
-      overlay.classList.remove('visible');
-    });
+    // Abre popup imediatamente; calculadora já está bloqueada pelo lock overlay
+    showPopup();
+
+    // Clicar no lock reabre o popup
+    calcLock.addEventListener('click', showPopup);
 
     popupForm.addEventListener('submit', e => {
       e.preventDefault();
@@ -809,8 +819,24 @@
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body,
       })
-      .catch(() => {})
-      .finally(() => overlay.classList.remove('visible'));
+      .then(res => {
+        if (res.ok) {
+          overlay.classList.remove('visible');
+          unlockCalculator();
+        } else {
+          // Netlify rejeitou — libera mesmo assim para não frustrar a usuária
+          // mas registra para diagnóstico
+          console.warn('Netlify form response:', res.status);
+          overlay.classList.remove('visible');
+          unlockCalculator();
+        }
+      })
+      .catch(err => {
+        // Sem internet ou erro de rede — libera e registra
+        console.warn('Form submit error:', err);
+        overlay.classList.remove('visible');
+        unlockCalculator();
+      });
     });
 
     initChart();
