@@ -424,6 +424,62 @@
     }
 
     /* ─────────────────────────────────────────
+       OFERTA PÓS-RESULTADO
+    ───────────────────────────────────────── */
+    #oferta-resultado {
+      background: var(--text-primary);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      display: none;
+    }
+
+    #oferta-resultado.visible {
+      display: block;
+    }
+
+    #oferta-resultado .oferta-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      margin-bottom: 0.75rem;
+    }
+
+    #oferta-resultado h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      font-weight: 700;
+      color: var(--bg-primary);
+      line-height: 1.25;
+      margin-bottom: 0.6rem;
+    }
+
+    #oferta-resultado h2 span { color: var(--accent-gold); }
+
+    #oferta-resultado .oferta-context {
+      font-size: 0.82rem;
+      color: rgba(245, 236, 215, 0.72);
+      margin-bottom: 0.5rem;
+    }
+
+    #oferta-resultado .oferta-desc {
+      font-size: 0.85rem;
+      color: rgba(245, 236, 215, 0.85);
+      max-width: 440px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.55;
+    }
+
+    #oferta-resultado .oferta-sub {
+      display: block;
+      font-size: 0.72rem;
+      color: rgba(245, 236, 215, 0.45);
+      margin-top: 0.75rem;
+    }
+
+    /* ─────────────────────────────────────────
        FUNCIONALIDADES PREMIUM
     ───────────────────────────────────────── */
     #funcionalidades-premium {
@@ -656,6 +712,18 @@
       </div>
     </section>
 
+    <!-- ── OFERTA PÓS-RESULTADO ── -->
+    <section id="oferta-resultado">
+      <p class="oferta-tag">Próximo passo</p>
+      <h2>Você calculou. Agora <span>automatize tudo.</span></h2>
+      <p class="oferta-context" id="oferta-context"></p>
+      <p class="oferta-desc">Este simulador calcula um produto por vez. A planilha completa faz isso para todos os seus produtos, gera orçamentos prontos e ainda mostra se o seu ateliê está lucrando de verdade — sem você precisar calcular nada na mão.</p>
+      <a class="cta-primary" href="https://go.hotmart.com/N104438479J" target="_blank" rel="noopener">
+        Quero a planilha completa
+      </a>
+      <span class="oferta-sub">Acesso imediato • Pagamento único • Funciona no celular</span>
+    </section>
+
     <!-- ── VITRINE PREMIUM ── -->
     <section id="funcionalidades-premium">
       <div class="premium-header">
@@ -782,6 +850,12 @@
         chart.data.datasets[0].data = [materialCost, laborCost, profitAmount];
         chart.update();
       }
+
+      // Exibe oferta personalizada com os números calculados
+      const oferta = document.getElementById('oferta-resultado');
+      const ofertaContext = document.getElementById('oferta-context');
+      ofertaContext.textContent = `Seu preço justo é ${fmt(salePrice)} — e ${fmt(profitAmount)} entram no seu bolso. Que tal parar de calcular isso na mão?`;
+      oferta.classList.add('visible');
     }
 
     [elMaterial, elHours, elHourly, elMargin].forEach(el =>
