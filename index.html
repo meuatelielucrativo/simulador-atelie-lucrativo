@@ -417,37 +417,123 @@
       font-family: 'Playfair Display', Georgia, serif;
       font-size: clamp(1.4rem, 4vw, 2rem);
       color: var(--text-primary);
-      margin-bottom: 2rem;
+      margin-bottom: 0.5rem;
     }
 
-    .depoimentos-grid {
+    #prova .intro {
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 560px;
+    }
+
+    .fundadoras-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 1.25rem;
     }
 
     @media (min-width: 600px) {
-      .depoimentos-grid { grid-template-columns: 1fr 1fr; }
+      .fundadoras-grid { grid-template-columns: 1fr 1fr 1fr; }
     }
 
-    .depoimento-placeholder {
+    .fundadora-card {
       background: var(--bg-card);
-      border: 1px dashed var(--border);
+      border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1.75rem;
-      text-align: center;
-      color: var(--text-secondary);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .fundadora-card .numero {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .fundadora-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .fundadora-card p {
       font-size: 0.875rem;
+      color: var(--text-secondary);
       line-height: 1.55;
     }
 
-    .depoimento-placeholder .stars {
-      color: var(--accent-gold);
-      font-size: 1.1rem;
-      letter-spacing: 2px;
-      display: block;
-      margin-bottom: 0.75rem;
+    /* ─── FAQ ─── */
+    #faq {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
     }
+
+    #faq h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: var(--text-primary);
+      margin-bottom: 2rem;
+    }
+
+    .faq-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-pergunta {
+      width: 100%;
+      background: var(--bg-card);
+      border: none;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      transition: background 0.15s;
+    }
+
+    .faq-pergunta:hover { background: #f0e5ce; }
+
+    .faq-pergunta .seta {
+      flex-shrink: 0;
+      color: var(--accent);
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+    }
+
+    .faq-item.aberto .seta { transform: rotate(45deg); }
+
+    .faq-resposta {
+      display: none;
+      padding: 0 1.5rem 1.25rem;
+      background: var(--bg-card);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .faq-item.aberto .faq-resposta { display: block; }
 
     /* ─── PREÇO ─── */
     #preco {
@@ -792,17 +878,25 @@
   ═══════════════════════════════════════ -->
   <section id="prova">
     <div class="container">
-      <span class="tag">Resultados reais</span>
-      <h2 style="margin-top:0.75rem;">O que dizem quem já usa</h2>
+      <span class="tag">Por que comprar agora</span>
+      <h2 style="margin-top:0.75rem;">Este é o melhor momento<br>para entrar.</h2>
+      <p class="intro">A planilha está no preço de fundadora. Quem compra agora paga menos, acessa tudo e ainda ajuda a moldar o produto — porque o retorno das primeiras usuárias é o que vai guiar as próximas atualizações.</p>
 
-      <div class="depoimentos-grid">
-        <div class="depoimento-placeholder">
-          <span class="stars">★★★★★</span>
-          <em>"Depoimento real em breve.<br>Se você comprar hoje e tiver resultado,<br>adoraria ouvir sua história."</em>
+      <div class="fundadoras-grid">
+        <div class="fundadora-card">
+          <span class="numero">01</span>
+          <h3>Menor preço que a planilha terá</h3>
+          <p>O preço de fundadora existe para quem entra no início. Quando os primeiros resultados chegarem, o valor sobe — e não volta.</p>
         </div>
-        <div class="depoimento-placeholder">
-          <span class="stars">★★★★★</span>
-          <em>"Depoimento real em breve.<br>Seja uma das primeiras a usar<br>e nos contar o que mudou."</em>
+        <div class="fundadora-card">
+          <span class="numero">02</span>
+          <h3>Acesso imediato e vitalício</h3>
+          <p>Assim que o pagamento for confirmado, o link chega no seu e-mail. Sem espera, sem prazo de validade, sem mensalidade.</p>
+        </div>
+        <div class="fundadora-card">
+          <span class="numero">03</span>
+          <h3>7 dias de garantia total</h3>
+          <p>Se por qualquer motivo não gostar, é só pedir o reembolso direto pela Hotmart. Sem burocracia, sem precisar explicar nada.</p>
         </div>
       </div>
     </div>
@@ -824,7 +918,88 @@
 
       <a href="https://pay.hotmart.com/N104438479J?off=rzcy0ohl" class="btn-gold" onclick="fbq && fbq('track','InitiateCheckout')">Garantir minha planilha por R$ 47 →</a>
 
-      <p class="fundadora-nota">Este é o preço de fundadora — quem compra agora garante o menor valor que a planilha terá. Quando os primeiros depoimentos chegarem, o preço sobe para R$ 97.</p>
+      <p class="fundadora-nota">Preço de fundadora — válido enquanto o produto estiver em fase de lançamento. O valor de tabela é R$ 97. Você está garantindo acesso completo por R$ 47, com todas as atualizações futuras inclusas.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════ -->
+  <section id="faq">
+    <div class="container">
+      <h2>Perguntas frequentes</h2>
+
+      <div class="faq-lista">
+        <div class="faq-item">
+          <button class="faq-pergunta" onclick="toggleFaq(this)">
+            Para quem é essa planilha?
+            <span class="seta">+</span>
+          </button>
+          <div class="faq-resposta">
+            Para qualquer artesã que vende peças feitas à mão e tem dificuldade em saber quanto cobrar — seja crochê, bordado, macramê, biscuit, patchwork ou qualquer outro tipo de artesanato. Você não precisa ter experiência com planilhas ou finanças.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-pergunta" onclick="toggleFaq(this)">
+            Preciso saber mexer em planilha ou ter conhecimento de finanças?
+            <span class="seta">+</span>
+          </button>
+          <div class="faq-resposta">
+            Não. A planilha foi feita para quem nunca usou uma antes. Você preenche os campos indicados — tipo de peça, materiais, tempo gasto — e ela calcula tudo automaticamente. Não tem fórmula para digitar, não tem nada para configurar.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-pergunta" onclick="toggleFaq(this)">
+            Isso é um curso ou uma planilha?
+            <span class="seta">+</span>
+          </button>
+          <div class="faq-resposta">
+            É uma planilha — uma ferramenta prática, não um curso. Não tem vídeo-aula, não tem módulo, não tem certificado. Você abre, preenche e já tem o preço calculado. Simples assim.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-pergunta" onclick="toggleFaq(this)">
+            Funciona no celular?
+            <span class="seta">+</span>
+          </button>
+          <div class="faq-resposta">
+            Sim. A planilha é em Google Sheets, que funciona direto no navegador do celular ou pelo aplicativo gratuito do Google. Você pode acessar de qualquer lugar, a qualquer hora, sem instalar nada além do app do Google.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-pergunta" onclick="toggleFaq(this)">
+            Como recebo a planilha depois de comprar?
+            <span class="seta">+</span>
+          </button>
+          <div class="faq-resposta">
+            Imediatamente após a confirmação do pagamento, a Hotmart envia um e-mail com o link de acesso. É só clicar, fazer uma cópia da planilha para o seu Google Drive e começar a usar. O acesso é vitalício.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-pergunta" onclick="toggleFaq(this)">
+            E se eu não gostar ou não conseguir usar?
+            <span class="seta">+</span>
+          </button>
+          <div class="faq-resposta">
+            Você tem 7 dias de garantia total pela Hotmart. Se por qualquer motivo não ficar satisfeita, é só solicitar o reembolso direto pela plataforma — sem precisar explicar nada, sem burocracia, sem questionamento. O dinheiro volta integralmente.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-pergunta" onclick="toggleFaq(this)">
+            Posso usar para qualquer tipo de artesanato?
+            <span class="seta">+</span>
+          </button>
+          <div class="faq-resposta">
+            Sim. A planilha funciona para bordado, crochê, tricô, macramê, biscuit, patchwork, costura, pintura em tecido, cerâmica e qualquer outro tipo de peça artesanal. Você adapta os campos para o seu material e o cálculo funciona igualmente.
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -874,6 +1049,15 @@
     </div>
     <a href="https://pay.hotmart.com/N104438479J?off=rzcy0ohl" class="btn-primary" onclick="fbq && fbq('track','InitiateCheckout')">Garantir acesso →</a>
   </div>
+
+  <script>
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const aberto = item.classList.contains('aberto');
+      document.querySelectorAll('.faq-item.aberto').forEach(i => i.classList.remove('aberto'));
+      if (!aberto) item.classList.add('aberto');
+    }
+  </script>
 
 </body>
 </html>
