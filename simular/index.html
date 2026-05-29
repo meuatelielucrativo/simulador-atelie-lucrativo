@@ -84,15 +84,7 @@
     }
 
     #calculator-lock {
-      position: absolute;
-      inset: 0;
-      border-radius: 12px;
-      background: rgba(245, 236, 215, 0.65);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-      cursor: pointer;
+      display: none;
     }
 
     #calculator-lock p {
@@ -635,9 +627,10 @@
   <!-- ── POPUP DE CAPTURA DE LEADS ── -->
   <div id="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popup-title">
     <div id="popup-modal">
+      <button id="popup-close" aria-label="Fechar" style="position:absolute;top:1rem;right:1rem;background:none;border:none;cursor:pointer;font-size:1.25rem;color:var(--text-secondary);line-height:1;">✕</button>
       <p class="popup-brand">Meu Ateliê Lucrativo</p>
-      <h2 id="popup-title">Antes de calcular…</h2>
-      <p class="popup-sub">Deixe seus dados e receba dicas de precificação direto no WhatsApp — de graça.</p>
+      <h2 id="popup-title">Gostou do resultado?</h2>
+      <p class="popup-sub">Deixa seu WhatsApp e receba dicas de precificação para o seu ateliê — de graça, direto no celular.</p>
       <form id="popup-form" name="leads-simulador" method="POST">
         <input type="hidden" name="form-name" value="leads-simulador">
         <input name="bot-field" style="display:none" tabindex="-1" autocomplete="off">
@@ -653,8 +646,9 @@
           <label for="popup-email">E-mail</label>
           <input type="email" id="popup-email" name="email" required autocomplete="email" placeholder="seu@email.com">
         </div>
-        <button type="submit" class="cta-primary">Quero calcular meu preço</button>
-        <p class="popup-micro">Sem spam. Só conteúdo que ajuda seu ateliê a lucrar mais.</p>
+        <button type="submit" class="cta-primary">Quero receber no WhatsApp</button>
+        <p class="popup-micro" style="margin-top:0.5rem;">Sem spam. Só conteúdo que ajuda seu ateliê a lucrar mais.</p>
+        <p style="text-align:center;margin-top:0.5rem;"><button type="button" id="popup-skip" style="background:none;border:none;cursor:pointer;font-size:0.8rem;color:var(--text-secondary);text-decoration:underline;">Agora não</button></p>
       </form>
     </div>
   </div>
@@ -875,16 +869,25 @@
       const ofertaContext = document.getElementById('oferta-context');
       ofertaContext.textContent = `Seu preço justo é ${fmt(salePrice)} — e ${fmt(profitAmount)} entram no seu bolso. Que tal parar de calcular isso na mão?`;
       oferta.classList.add('visible');
+
+      // Dispara popup 4s após o primeiro resultado real aparecer
+      if (!popupShown && !popupTimer) {
+        popupTimer = setTimeout(() => {
+          popupShown = true;
+          showPopup();
+        }, 4000);
+      }
     }
 
     [elMaterial, elHours, elHourly, elMargin].forEach(el =>
       el.addEventListener('input', recalculate)
     );
 
-    // ── POPUP + LOCK ──
-    const overlay    = document.getElementById('popup-overlay');
-    const popupForm  = document.getElementById('popup-form');
-    const calcLock   = document.getElementById('calculator-lock');
+    // ── POPUP ──
+    const overlay   = document.getElementById('popup-overlay');
+    const popupForm = document.getElementById('popup-form');
+    let popupShown  = false;
+    let popupTimer  = null;
 
     function showPopup() {
       overlay.classList.add('visible');
@@ -894,15 +897,14 @@
       }, 100);
     }
 
-    function unlockCalculator() {
-      calcLock.style.display = 'none';
+    function closePopup() {
+      overlay.classList.remove('visible');
     }
 
-    // Abre popup imediatamente; calculadora já está bloqueada pelo lock overlay
-    showPopup();
+    function unlockCalculator() {} // mantido por compatibilidade — lock já está oculto
 
-    // Clicar no lock reabre o popup
-    calcLock.addEventListener('click', showPopup);
+    document.getElementById('popup-close').addEventListener('click', closePopup);
+    document.getElementById('popup-skip').addEventListener('click', closePopup);
 
     popupForm.addEventListener('submit', e => {
       e.preventDefault();
