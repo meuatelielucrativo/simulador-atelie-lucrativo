@@ -733,7 +733,7 @@
       <h2>Você calculou. Agora <span>automatize tudo.</span></h2>
       <p class="oferta-context" id="oferta-context"></p>
       <p class="oferta-desc">Este simulador calcula um produto por vez. A planilha completa faz isso para todos os seus produtos, gera orçamentos prontos e ainda mostra se o seu ateliê está lucrando de verdade — sem você precisar calcular nada na mão.</p>
-      <a class="cta-primary" href="https://pay.hotmart.com/N104438479J" target="_blank" rel="noopener">
+      <a class="cta-primary" href="https://pay.hotmart.com/N104438479J" target="_blank" rel="noopener" onclick="if(window.fbq) fbq('track','InitiateCheckout')">
         Quero a planilha completa
       </a>
       <span class="oferta-sub">Acesso imediato • Pagamento único • Funciona no celular</span>
@@ -790,7 +790,7 @@
   <footer>
     <h2>Pare de perder dinheiro nos cálculos.</h2>
     <p>A planilha completa automatiza tudo o que você faz na mão hoje — e ainda te mostra se está cobrando de menos.</p>
-    <a class="cta-primary" href="https://pay.hotmart.com/N104438479J" target="_blank" rel="noopener">
+    <a class="cta-primary" href="https://pay.hotmart.com/N104438479J" target="_blank" rel="noopener" onclick="if(window.fbq) fbq('track','InitiateCheckout')">
       Quero automatizar meus cálculos
     </a>
     <span class="cta-sub">Acesso imediato. Funciona no celular e no computador.</span>
@@ -918,6 +918,7 @@
       })
       .then(res => {
         if (res.ok) {
+          if (window.fbq) fbq('track', 'Lead');
           overlay.classList.remove('visible');
           unlockCalculator();
         } else {
