@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Ateliê Lucrativo — Planilha de Precificação para Artesãs</title>
+  <meta name="description" content="A planilha que ensina artesãs a cobrar o preço certo, sem medo e sem adivinhação. Acesso imediato por R$ 47.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary:     #F5ECD7;
+      --bg-card:        #FDF8F2;
+      --bg-dark:        #3D2B1F;
+      --accent:         #C17B5C;
+      --accent-dim:     #A4614A;
+      --accent-gold:    #C9A84C;
+      --text-primary:   #3D2B1F;
+      --text-secondary: #7A5E50;
+      --border:         #DCCFBB;
+      --rosa:           #D4A5A5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ─── UTILITÁRIOS ─── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      padding: 0.25rem 0.6rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.15s, transform 0.1s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary:hover { background: var(--accent-dim); transform: translateY(-1px); }
+
+    .btn-gold {
+      display: inline-block;
+      background: var(--accent-gold);
+      color: var(--bg-dark);
+      font-family: inherit;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 1.1rem 2.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      transition: opacity 0.15s, transform 0.1s;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      max-width: 440px;
+    }
+    .btn-gold:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    #hero {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-photo-wrap {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: var(--bg-card);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .hero-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      display: block;
+    }
+
+    .hero-photo-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 140px;
+      background: linear-gradient(to bottom, transparent, var(--bg-primary));
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      padding: 2rem 1.25rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .hero-copy h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.7rem, 6vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    .hero-copy h1 span { color: var(--accent); }
+
+    .hero-copy .sub {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      line-height: 1.6;
+    }
+
+    .hero-price-preview {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .price-anchor {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      text-decoration: line-through;
+    }
+
+    .price-main {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .price-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: var(--accent-gold);
+      color: var(--bg-dark);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    @media (min-width: 720px) {
+      #hero {
+        flex-direction: row;
+        min-height: 540px;
+        align-items: stretch;
+      }
+
+      .hero-photo-wrap {
+        width: 380px;
+        height: auto;
+        min-height: 540px;
+        aspect-ratio: unset;
+      }
+
+      .hero-photo-wrap::after {
+        top: 0; bottom: 0; right: 0; left: auto;
+        width: 80px;
+        height: 100%;
+        background: linear-gradient(to right, transparent, var(--bg-primary));
+      }
+
+      .hero-copy {
+        flex: 1;
+        justify-content: center;
+        padding: 3rem 3rem 3rem 2.5rem;
+      }
+    }
+
+    /* ─── DOR ─── */
+    #dor {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    #dor h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    #dor .intro {
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 560px;
+    }
+
+    .dor-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 600px) {
+      .dor-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    .dor-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .dor-card .icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .dor-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .dor-card p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ─── APRESENTAÇÃO ─── */
+    #apresentacao {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .apresentacao-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 680px) {
+      .apresentacao-inner {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .apresentacao-foto {
+      width: 180px;
+      height: 220px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .apresentacao-foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+
+    .apresentacao-texto h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.3rem, 4vw, 1.8rem);
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+
+    .apresentacao-texto p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+      line-height: 1.65;
+    }
+
+    .apresentacao-texto p strong {
+      color: var(--text-primary);
+    }
+
+    /* ─── O QUE É ─── */
+    #oque {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    #oque h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    #oque .intro {
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 560px;
+    }
+
+    .beneficios-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .beneficio-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .beneficio-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .beneficio-texto h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .beneficio-texto p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ─── INCLUSO ─── */
+    #incluso {
+      padding: 4rem 0;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    #incluso h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: var(--text-primary);
+      margin-bottom: 2rem;
+    }
+
+    .incluso-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 600px) {
+      .incluso-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    .incluso-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .incluso-item::before {
+      content: '✓';
+      color: var(--accent-gold);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    /* ─── PROVA SOCIAL ─── */
+    #prova {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    #prova h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: var(--text-primary);
+      margin-bottom: 2rem;
+    }
+
+    .depoimentos-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 600px) {
+      .depoimentos-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .depoimento-placeholder {
+      background: var(--bg-card);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.55;
+    }
+
+    .depoimento-placeholder .stars {
+      color: var(--accent-gold);
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ─── PREÇO ─── */
+    #preco {
+      padding: 4rem 0;
+      background: var(--bg-dark);
+      color: var(--bg-primary);
+    }
+
+    #preco .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.5rem;
+    }
+
+    #preco .tag-light {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      border: 1px solid var(--accent-gold);
+      border-radius: 4px;
+      padding: 0.25rem 0.6rem;
+    }
+
+    #preco h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      color: var(--bg-primary);
+      line-height: 1.2;
+    }
+
+    #preco .preco-bloco {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    #preco .de {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      text-decoration: line-through;
+    }
+
+    #preco .por {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      line-height: 1;
+    }
+
+    #preco .parcela {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    #preco .fundadora-nota {
+      font-size: 0.875rem;
+      color: #b0967e;
+      max-width: 420px;
+      line-height: 1.55;
+    }
+
+    /* ─── GARANTIA ─── */
+    #garantia {
+      padding: 3rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .garantia-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+    }
+
+    .garantia-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+
+    .garantia-texto h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .garantia-texto p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ─── CTA FINAL ─── */
+    #cta-final {
+      padding: 4rem 0 5rem;
+      text-align: center;
+    }
+
+    #cta-final h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+
+    #cta-final p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    #cta-final .cta-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    #cta-final .cta-micro {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg-dark);
+      color: #b0967e;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    footer a {
+      color: var(--accent-gold);
+      text-decoration: none;
+    }
+
+    /* ─── BARRA FLUTUANTE MOBILE ─── */
+    .sticky-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--bg-dark);
+      padding: 0.85rem 1.25rem;
+      z-index: 100;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .sticky-bar .sticky-price {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sticky-bar .sticky-de {
+      font-size: 0.7rem;
+      color: #7a6055;
+      text-decoration: line-through;
+    }
+
+    .sticky-bar .sticky-por {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    .sticky-bar .btn-primary {
+      flex-shrink: 0;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 719px) {
+      .sticky-bar { display: flex; }
+      body { padding-bottom: 72px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-photo-wrap">
+      <img src="foto-ivana.jpg" alt="Ivana Martins — artesã e criadora do Meu Ateliê Lucrativo">
+    </div>
+    <div class="hero-copy">
+      <span class="tag">Planilha para artesãs</span>
+      <h1>Pare de adivinhar.<br><span>Comece a cobrar certo.</span></h1>
+      <p class="sub">A planilha que mostra exatamente o preço mínimo de cada peça — com lucro real, sem medo e sem matemática complicada.</p>
+      <div class="hero-price-preview">
+        <span class="price-anchor">R$ 97,00</span>
+        <span class="price-main">R$ 47,00</span>
+        <span class="price-badge">Preço de fundadora</span>
+      </div>
+      <a href="https://pay.hotmart.com/N104438479J" class="btn-primary" onclick="fbq && fbq('track','InitiateCheckout')">Quero a planilha agora →</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       DOR
+  ═══════════════════════════════════════ -->
+  <section id="dor">
+    <div class="container">
+      <p class="tag">Você se reconhece aqui?</p>
+      <h2 style="margin-top:0.75rem;">Trabalha muito. Vende bastante.<br>E ainda assim o dinheiro some.</h2>
+      <p class="intro">Se você sente isso, não é falta de talento — é falta de método. Essas são as situações mais comuns entre artesãs que ainda não encontraram a planilha certa:</p>
+
+      <div class="dor-grid">
+        <div class="dor-card">
+          <div class="icon">💸</div>
+          <h3>"Cobro pela matéria-prima e no fim não sobra quase nada."</h3>
+          <p>Tempo, energia, embalagem, entrega e margem de lucro ficam de fora da conta — e você paga tudo isso do próprio bolso.</p>
+        </div>
+        <div class="dor-card">
+          <div class="icon">😰</div>
+          <h3>"Tenho medo de cobrar mais caro e perder a cliente."</h3>
+          <p>Esse medo faz você cobrar barato, o que atrai quem só quer desconto — e afasta quem valoriza seu trabalho de verdade.</p>
+        </div>
+        <div class="dor-card">
+          <div class="icon">📊</div>
+          <h3>"Já tentei calcular, mas desisti porque é complicado demais."</h3>
+          <p>Planilha que parece manual de aviação não ajuda. Você precisa de algo que você mesma consiga usar no dia a dia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       APRESENTAÇÃO
+  ═══════════════════════════════════════ -->
+  <section id="apresentacao">
+    <div class="container">
+      <div class="apresentacao-inner">
+        <div class="apresentacao-foto">
+          <img src="foto-ivana.jpg" alt="Ivana Martins">
+        </div>
+        <div class="apresentacao-texto">
+          <h2>Passei pelos mesmos erros.<br>Depois criei uma saída.</h2>
+          <p>Meu nome é <strong>Ivana Martins</strong>. Tenho 62 anos e comecei no artesanato aos 55 — depois que os filhos cresceram e senti que precisava de algo só meu.</p>
+          <p>Durante anos trabalhei muito e cobrei pouco. Achava que preço alto ia afastar cliente. Achava que não merecia mais. <strong>Estava errada.</strong></p>
+          <p>Quando aprendi a calcular o preço certo — com todos os custos reais — minha renda dobrou sem eu precisar vender uma peça a mais. Criei essa planilha para que você não precise demorar tanto quanto eu para chegar lá.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       O QUE É
+  ═══════════════════════════════════════ -->
+  <section id="oque">
+    <div class="container">
+      <span class="tag">O que você recebe</span>
+      <h2 style="margin-top:0.75rem;">Uma ferramenta. Não um curso.</h2>
+      <p class="intro">Sem vídeo-aula, sem módulo, sem certificado. Você abre, preenche e já sabe o preço. Simples assim.</p>
+
+      <div class="beneficios-lista">
+        <div class="beneficio-item">
+          <div class="beneficio-icon">🧮</div>
+          <div class="beneficio-texto">
+            <h3>Cálculo automático do preço mínimo</h3>
+            <p>Você informa os custos — a planilha calcula o preço mínimo que cobre tudo e ainda gera lucro real. Sem fórmula manual, sem erro.</p>
+          </div>
+        </div>
+        <div class="beneficio-item">
+          <div class="beneficio-icon">⏱️</div>
+          <div class="beneficio-texto">
+            <h3>Custo do seu tempo incluso na conta</h3>
+            <p>A maioria das artesãs esquece de cobrar pelo tempo gasto. A planilha calcula isso automaticamente — porque seu tempo vale dinheiro.</p>
+          </div>
+        </div>
+        <div class="beneficio-item">
+          <div class="beneficio-icon">📦</div>
+          <div class="beneficio-texto">
+            <h3>Todos os custos cobertos</h3>
+            <p>Matéria-prima, embalagem, entrega, overhead e margem de lucro — tudo na conta, nada esquecido.</p>
+          </div>
+        </div>
+        <div class="beneficio-item">
+          <div class="beneficio-icon">📱</div>
+          <div class="beneficio-texto">
+            <h3>Funciona no celular e no computador</h3>
+            <p>Google Sheets — abre direto no celular, salva na nuvem, acessa de qualquer lugar. Sem instalar nada.</p>
+          </div>
+        </div>
+        <div class="beneficio-item">
+          <div class="beneficio-icon">♾️</div>
+          <div class="beneficio-texto">
+            <h3>Acesso para sempre. Sem mensalidade.</h3>
+            <p>Pagamento único. Sem cobrança recorrente, sem surpresa na fatura, sem dependência de assinatura.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       INCLUSO
+  ═══════════════════════════════════════ -->
+  <section id="incluso">
+    <div class="container">
+      <span class="tag">Tudo que está dentro</span>
+      <h2 style="margin-top:0.75rem;">O que você recebe no acesso</h2>
+
+      <div class="incluso-grid">
+        <div class="incluso-item">Aba de precificação por peça</div>
+        <div class="incluso-item">Cálculo automático de custo por hora</div>
+        <div class="incluso-item">Campo de margem de lucro ajustável</div>
+        <div class="incluso-item">Registro de materiais e fornecedores</div>
+        <div class="incluso-item">Controle de estoque básico</div>
+        <div class="incluso-item">Resumo de lucratividade mensal</div>
+        <div class="incluso-item">Instrução de uso em português</div>
+        <div class="incluso-item">Compatível com Google Sheets</div>
+        <div class="incluso-item">Acesso vitalício com atualizações</div>
+      </div>
+
+      <div style="margin-top:2.5rem; text-align:center;">
+        <a href="https://pay.hotmart.com/N104438479J" class="btn-primary" onclick="fbq && fbq('track','InitiateCheckout')">Quero acesso por R$ 47 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       PROVA SOCIAL
+  ═══════════════════════════════════════ -->
+  <section id="prova">
+    <div class="container">
+      <span class="tag">Resultados reais</span>
+      <h2 style="margin-top:0.75rem;">O que dizem quem já usa</h2>
+
+      <div class="depoimentos-grid">
+        <div class="depoimento-placeholder">
+          <span class="stars">★★★★★</span>
+          <em>"Depoimento real em breve.<br>Se você comprar hoje e tiver resultado,<br>adoraria ouvir sua história."</em>
+        </div>
+        <div class="depoimento-placeholder">
+          <span class="stars">★★★★★</span>
+          <em>"Depoimento real em breve.<br>Seja uma das primeiras a usar<br>e nos contar o que mudou."</em>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       PREÇO
+  ═══════════════════════════════════════ -->
+  <section id="preco">
+    <div class="container">
+      <span class="tag-light">Oferta de fundadora</span>
+      <h2>Invista uma vez.<br>Use para sempre.</h2>
+
+      <div class="preco-bloco">
+        <span class="de">De R$ 97,00</span>
+        <span class="por">R$ 47,00</span>
+        <span class="parcela">pagamento único · acesso imediato</span>
+      </div>
+
+      <a href="https://pay.hotmart.com/N104438479J" class="btn-gold" onclick="fbq && fbq('track','InitiateCheckout')">Garantir minha planilha por R$ 47 →</a>
+
+      <p class="fundadora-nota">Este é o preço de fundadora — quem compra agora garante o menor valor que a planilha terá. Quando os primeiros depoimentos chegarem, o preço sobe para R$ 97.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       GARANTIA
+  ═══════════════════════════════════════ -->
+  <section id="garantia">
+    <div class="container">
+      <div class="garantia-inner">
+        <div class="garantia-icon">🛡️</div>
+        <div class="garantia-texto">
+          <h3>7 dias de garantia total</h3>
+          <p>Se por qualquer motivo você não ficar satisfeita, é só pedir o reembolso em até 7 dias — direto pela Hotmart, sem burocracia, sem precisar explicar nada. O risco é zero.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CTA FINAL
+  ═══════════════════════════════════════ -->
+  <section id="cta-final">
+    <div class="container">
+      <h2>Você não está atrasada.<br>Você só ainda não tinha<br>a ferramenta certa.</h2>
+      <p>A planilha está pronta. O preço nunca mais vai ser esse. A decisão é sua.</p>
+      <div class="cta-wrap">
+        <a href="https://pay.hotmart.com/N104438479J" class="btn-gold" onclick="fbq && fbq('track','InitiateCheckout')">Quero cobrar certo a partir de hoje →</a>
+        <span class="cta-micro">🔒 Pagamento seguro via Hotmart · 7 dias de garantia</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer>
+    <p>© 2026 Meu Ateliê Lucrativo · <a href="/simular">Testar o simulador grátis</a> · @meu.atelie.lucrativo</p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════
+       BARRA FLUTUANTE MOBILE
+  ═══════════════════════════════════════ -->
+  <div class="sticky-bar">
+    <div class="sticky-price">
+      <span class="sticky-de">R$ 97,00</span>
+      <span class="sticky-por">R$ 47,00</span>
+    </div>
+    <a href="https://pay.hotmart.com/N104438479J" class="btn-primary" onclick="fbq && fbq('track','InitiateCheckout')">Garantir acesso →</a>
+  </div>
+
+</body>
+</html>
