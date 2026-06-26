@@ -6,57 +6,73 @@
   <title>Meu Ateliê Lucrativo — Ferramentas digitais que deixam seu ateliê lucrativo</title>
   <meta name="description" content="Vitrines e sites, planilha de precificação, simulador e ferramentas digitais simples para artesãs e pequenos negócios. Feito pela Ivana, do Meu Ateliê Lucrativo." />
   <link rel="icon" href="./img/simbolo-fundo-branco.png" />
-
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Meu Ateliê Lucrativo — ferramentas que deixam seu ateliê lucrativo" />
   <meta property="og:description" content="Vitrines e sites, planilha de precificação e o simulador de lucratividade. Simples, bonito e pensado pra quem vive do que cria." />
   <meta property="og:image" content="https://www.meuatelielucrativo.com.br/img/ivana-hero.jpg" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root{ --terra:#C17B5C; --bege:#F5ECD7; --dourado:#C9A84C; --marrom:#3D2B1F; --branco:#FDF8F2; --rosa:#D4A5A5; --texto:#4a3a2d; --cinza:#7a6a5a; }
+    :root{ --terra:#C17B5C; --bege:#F5ECD7; --dourado:#C9A84C; --marrom:#3D2B1F; --branco:#FDF8F2; --texto:#4a3a2d; --cinza:#7a6a5a; --linha:#ecdfca; --zap:#25d366; }
     *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Inter',system-ui,sans-serif;background:var(--branco);color:var(--texto);line-height:1.65}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--branco);color:var(--texto);line-height:1.65;overflow-x:hidden}
     h1,h2,h3,.bs{font-family:'Playfair Display',serif}
     img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
     .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
-    .btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;padding:13px 24px;border-radius:50px;transition:.2s;font-size:.98rem;cursor:pointer}
+    .btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;padding:13px 24px;border-radius:50px;transition:.2s;font-size:.98rem}
     .btn:hover{transform:translateY(-2px)}
-    .btn.zap{background:#25d366;color:#fff}
+    .btn.zap{background:var(--zap);color:#fff}
     .btn.terra{background:var(--terra);color:#fff}
     .btn.ghost{background:transparent;border:1.5px solid var(--terra);color:var(--terra)}
     .btn img{width:19px;height:19px}
-    /* header */
-    header{position:sticky;top:0;z-index:50;background:rgba(253,248,242,.94);backdrop-filter:blur(6px);border-bottom:1px solid #ecdfca}
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+    .reveal.in{opacity:1;transform:none}
+    .reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+    header{position:sticky;top:0;z-index:50;background:rgba(253,248,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--linha)}
     header .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 22px}
-    .word{font-family:'Playfair Display',serif;font-weight:800;font-size:1.32rem;color:var(--marrom);letter-spacing:.01em;line-height:1}
+    .word{font-family:'Playfair Display',serif;font-weight:800;font-size:1.32rem;color:var(--marrom);line-height:1}
     .word span{color:var(--terra)}
     .word small{display:block;font-family:'Inter',sans-serif;font-weight:500;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cinza);margin-top:3px}
-    /* hero */
-    .hero{background:var(--bege)}
-    .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;padding:60px 22px 64px}
-    .hero .eyebrow{color:var(--terra);text-transform:uppercase;letter-spacing:.2em;font-size:.78rem;font-weight:700;margin-bottom:14px}
-    .hero h1{font-size:2.7rem;font-weight:800;color:var(--marrom);line-height:1.1}
-    .hero h1 span{color:var(--terra)}
-    .hero p{font-size:1.14rem;color:var(--cinza);max-width:42ch;margin:16px 0 0}
-    .hero .ctas{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
-    .hero .photo{position:relative}
-    .hero .photo img{width:100%;max-height:480px;object-fit:cover;border-radius:22px;border:6px solid #fff;box-shadow:0 18px 44px rgba(61,43,31,.18)}
-    .hero .photo::after{content:"";position:absolute;right:-12px;bottom:-12px;width:120px;height:120px;border:3px solid var(--dourado);border-radius:22px;z-index:-1}
-    section{padding:64px 0}
+    /* HERO */
+    .hero{position:relative;background:var(--bege);overflow:hidden}
+    .hglow{position:absolute;inset:-25%;z-index:0;background:radial-gradient(circle at 28% 32%,rgba(193,123,92,.20),transparent 42%),radial-gradient(circle at 76% 64%,rgba(201,168,76,.20),transparent 44%);animation:floatglow 13s ease-in-out infinite alternate}
+    @keyframes floatglow{from{transform:translate(0,0) scale(1)}to{transform:translate(4%,3%) scale(1.06)}}
+    .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:70px 22px 78px}
+    .hero .eyebrow{color:var(--terra);text-transform:uppercase;letter-spacing:.2em;font-size:.78rem;font-weight:700;margin-bottom:14px;animation:fadeUp .8s .1s both}
+    .hero h1{font-size:3.1rem;font-weight:800;color:var(--marrom);line-height:1.08;animation:fadeUp .8s .2s both}
+    .hl{position:relative;white-space:nowrap;color:var(--terra)}
+    .hl::after{content:"";position:absolute;left:-3px;right:-3px;bottom:6px;height:15px;background:rgba(201,168,76,.5);z-index:-1;border-radius:5px;transform:scaleX(0);transform-origin:left;animation:draw .7s 1s forwards}
+    @keyframes draw{to{transform:scaleX(1)}}
+    .hero p{font-size:1.15rem;color:var(--cinza);max-width:42ch;margin:18px 0 0;animation:fadeUp .8s .35s both}
+    .hero .ctas{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .8s .5s both}
+    .trust{margin-top:24px;display:flex;gap:20px;flex-wrap:wrap;animation:fadeUp .8s .65s both}
+    .trust span{display:inline-flex;align-items:center;gap:7px;font-size:.86rem;color:var(--marrom);font-weight:500}
+    .trust svg{width:18px;height:18px;stroke:var(--terra);flex:none}
+    .hero .photo{position:relative;perspective:1100px}
+    .hero .photo .tilt{position:relative;transform-style:preserve-3d;transition:transform .2s ease;animation:fadeUp .9s .25s both}
+    .hero .photo img.foto{width:100%;max-height:500px;object-fit:cover;border-radius:24px;border:6px solid #fff;box-shadow:0 26px 56px rgba(61,43,31,.26)}
+    .hero .photo::after{content:"";position:absolute;right:-14px;bottom:-14px;width:130px;height:130px;border:3px solid var(--dourado);border-radius:24px;z-index:-1}
+    .fcard{position:absolute;background:#fff;border-radius:13px;box-shadow:0 14px 34px rgba(61,43,31,.20);padding:10px 14px;font-size:.84rem;font-weight:600;color:var(--marrom);display:flex;align-items:center;gap:9px;transform:translateZ(40px)}
+    .fcard svg,.fcard img{width:18px;height:18px;flex:none}
+    .fcard-a{top:26px;left:-22px;animation:floaty 4s ease-in-out infinite}
+    .fcard-b{bottom:30px;right:-20px;animation:floaty 4.8s ease-in-out infinite .6s}
+    @keyframes floaty{0%,100%{transform:translateZ(40px) translateY(0)}50%{transform:translateZ(40px) translateY(-10px)}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+    section{padding:70px 0}
     .eyebrow{text-align:center;color:var(--terra);text-transform:uppercase;letter-spacing:.2em;font-size:.78rem;font-weight:700}
-    .h2{text-align:center;font-size:2rem;font-weight:700;color:var(--marrom);margin:8px 0 6px}
-    .sub{text-align:center;color:var(--cinza);max-width:52ch;margin:0 auto 36px}
-    /* produtos */
+    .h2{text-align:center;font-size:2.1rem;font-weight:700;color:var(--marrom);margin:8px 0 6px}
+    .sub{text-align:center;color:var(--cinza);max-width:52ch;margin:0 auto 38px}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:20px}
-    .card{background:#fff;border:1px solid #ecdfca;border-radius:16px;padding:26px 24px;display:flex;flex-direction:column;transition:.2s}
-    .card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(193,123,92,.13)}
+    .card{background:#fff;border:1px solid var(--linha);border-radius:16px;padding:26px 24px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+    .card:hover{transform:translateY(-7px);box-shadow:0 18px 40px rgba(193,123,92,.18)}
     .card.feat{border-color:var(--terra);box-shadow:0 8px 26px rgba(193,123,92,.12)}
-    .card .ic{width:52px;height:52px;border-radius:14px;background:var(--bege);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
-    .card .ic svg{width:26px;height:26px;stroke:var(--terra)}
+    .card .ic{width:52px;height:52px;border-radius:14px;background:var(--bege);display:flex;align-items:center;justify-content:center;margin-bottom:14px;transition:.25s}
+    .card:hover .ic{background:var(--terra);transform:rotate(-6deg)}
+    .card .ic svg{width:26px;height:26px;stroke:var(--terra);transition:.25s}
+    .card:hover .ic svg{stroke:#fff}
     .tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:50px;margin-bottom:10px;width:fit-content}
     .tag.novo{background:var(--terra);color:#fff}
     .tag.breve{background:#e7ddcf;color:var(--cinza)}
@@ -64,46 +80,48 @@
     .card p{font-size:.95rem;color:var(--cinza);flex:1}
     .card .cta{margin-top:16px}
     .card .link{font-weight:600;color:var(--terra);font-size:.95rem;margin-top:16px;display:inline-block}
-    /* exemplos */
     .exemplos{background:var(--bege)}
     .ex{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
-    .ex .e{background:#fff;border:1px solid #ecdfca;border-radius:14px;overflow:hidden;transition:.2s;display:flex;flex-direction:column}
-    .ex .e:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(61,43,31,.13)}
-    .browserbar{height:36px;background:#ece3d4;display:flex;align-items:center;gap:6px;padding:0 12px}
+    .ex .e{background:#fff;border:1px solid var(--linha);border-radius:14px;overflow:hidden;transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column}
+    .ex .e:hover{transform:translateY(-7px);box-shadow:0 20px 40px rgba(61,43,31,.18)}
+    .browserbar{height:36px;background:#ece3d4;display:flex;align-items:center;gap:6px;padding:0 12px;flex:none}
     .browserbar i{width:9px;height:9px;border-radius:50%;background:#cdbfa9;display:block}
-    .browserbar .u{margin-left:8px;font-size:.74rem;color:#9a8a76;font-family:'Inter',sans-serif}
-    .preview{height:128px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.5rem;text-align:center;padding:10px;color:#fff}
-    .preview.p1{background:linear-gradient(135deg,#C17B5C,#9c5f44)}
-    .preview.p2{background:linear-gradient(135deg,#2b2724,#161311)}
-    .preview.p3{background:linear-gradient(135deg,#C9A84C,#a88a34);color:var(--marrom)}
+    .browserbar .u{margin-left:8px;font-size:.74rem;color:#9a8a76}
+    .mock{height:158px;padding:16px 18px;display:flex;flex-direction:column;justify-content:center;gap:6px;color:#fff;overflow:hidden}
+    .mock .mn{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;line-height:1.05}
+    .mock .mt{font-size:.74rem;opacity:.9;letter-spacing:.04em}
+    .mock .row{display:flex;gap:7px;margin-top:8px}
+    .mock .row b{flex:1;height:26px;border-radius:6px;background:rgba(255,255,255,.32)}
+    .mock.m1{background:linear-gradient(135deg,#C17B5C,#9c5f44)}
+    .mock.m2{background:linear-gradient(135deg,#c08a86,#9c625d)}
+    .mock.m3{background:linear-gradient(135deg,#C9A84C,#a88a34);color:var(--marrom)}
+    .mock.m3 .mn{text-align:center;font-size:1.5rem;width:100%}
     .ex .info{padding:18px 20px;flex:1;display:flex;flex-direction:column}
     .ex .info h3{font-size:1.16rem;color:var(--marrom);margin-bottom:4px}
     .ex .info p{font-size:.9rem;color:var(--cinza);flex:1}
     .ex .info .link{margin-top:12px;font-weight:600;color:var(--terra);font-size:.92rem}
-    /* sobre ivana */
     .sobre .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:46px;align-items:center}
     .sobre .photo img{width:100%;max-height:460px;object-fit:cover;border-radius:22px;border:6px solid #fff;box-shadow:0 16px 40px rgba(61,43,31,.16)}
     .sobre h2{font-size:2rem;color:var(--marrom);margin:6px 0 14px}
     .sobre p{font-size:1.08rem;color:var(--texto);margin-bottom:12px}
     .sobre .ass{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--terra);font-weight:700}
     .sobre .ass small{display:block;font-family:'Inter',sans-serif;font-size:.82rem;color:var(--cinza);font-weight:400;letter-spacing:.05em;margin-top:2px}
-    /* cta final */
     .final{background:var(--marrom);color:var(--branco);text-align:center}
-    .final h2{font-size:2rem;color:#fff;margin-bottom:8px}
+    .final h2{font-size:2.1rem;color:#fff;margin-bottom:8px}
     .final p{color:#d8c9ba;max-width:44ch;margin:0 auto 24px}
     .final .contatos{margin-top:26px;display:flex;gap:10px 26px;justify-content:center;flex-wrap:wrap;font-size:.95rem;color:#e7d8c8}
     .final .contatos a{color:var(--dourado);font-weight:600}
     footer{background:#2c1f15;color:#b3a394;text-align:center;padding:26px 22px;font-size:.86rem}
     footer img{height:36px;width:auto;object-fit:contain;margin:0 auto 10px}
-    .zap-float{position:fixed;right:18px;bottom:18px;background:#25d366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.25);z-index:99}
+    .zap-float{position:fixed;right:18px;bottom:18px;background:var(--zap);width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.25);z-index:90;transition:.2s}
+    .zap-float:hover{transform:scale(1.08)}
     .zap-float img{width:30px;height:30px}
     @media(max-width:760px){
-      .hero .wrap{grid-template-columns:1fr;gap:30px;text-align:center;padding:46px 22px}
-      .hero p{margin-left:auto;margin-right:auto} .hero .ctas{justify-content:center}
-      .hero .photo::after{display:none}
-      .hero h1{font-size:2.1rem}
+      .hero .wrap{grid-template-columns:1fr;gap:34px;text-align:center;padding:48px 22px}
+      .hero p{margin-left:auto;margin-right:auto} .hero .ctas,.trust{justify-content:center}
+      .hero .photo::after{display:none} .hero h1{font-size:2.2rem} .fcard{display:none}
       .sobre .wrap{grid-template-columns:1fr;gap:26px;text-align:center}
-      .h2,.final h2{font-size:1.65rem} section{padding:48px 0}
+      .h2,.final h2{font-size:1.7rem} section{padding:52px 0}
     }
   </style>
 </head>
@@ -118,18 +136,27 @@
 
   <!-- HERO -->
   <div class="hero">
+    <div class="hglow"></div>
     <div class="wrap">
       <div class="txt">
         <div class="eyebrow">Estúdio digital · feito por quem é do ateliê</div>
-        <h1>Ferramentas digitais que deixam o seu <span>ateliê lucrativo</span></h1>
+        <h1>Ferramentas digitais que deixam o seu <span class="hl">ateliê lucrativo</span></h1>
         <p>Sites, planilhas e ferramentas simples pra você vender mais e organizar o seu negócio — sem precisar entender nada de tecnologia.</p>
         <div class="ctas">
           <a class="btn zap" href="https://wa.me/5521995764264?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="">Quero saber mais</a>
           <a class="btn ghost" href="#exemplos">Ver exemplos</a>
         </div>
+        <div class="trust">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-1 4 8.5 8.5 0 0 1-7.5 4.5 8.4 8.4 0 0 1-4-1L3 21l1.9-5.5a8.4 8.4 0 0 1-1-4A8.5 8.5 0 0 1 8.5 4a8.4 8.4 0 0 1 4-1A8.5 8.5 0 0 1 21 11.5z"/></svg> Cliente direto no WhatsApp</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg> Achável no Google</span>
+        </div>
       </div>
-      <div class="photo">
-        <img src="./img/ivana-hero.jpg" alt="Ivana, do Meu Ateliê Lucrativo, no seu ateliê" />
+      <div class="photo" id="heroPhoto">
+        <div class="tilt" id="heroTilt">
+          <img class="foto" src="./img/ivana-hero.jpg" alt="Ivana, do Meu Ateliê Lucrativo, no seu ateliê" />
+          <div class="fcard fcard-a"><svg viewBox="0 0 24 24" fill="none" stroke="#C17B5C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg> seu-atelie.com.br</div>
+          <div class="fcard fcard-b"><img src="https://cdn.simpleicons.org/whatsapp/25D366" alt=""> Pedido no WhatsApp 🎉</div>
+        </div>
       </div>
     </div>
   </div>
@@ -137,41 +164,36 @@
   <!-- PRODUTOS -->
   <section>
     <div class="wrap">
-      <div class="eyebrow">O que eu faço por você</div>
-      <h2 class="h2">Ferramentas pra cada parte do seu negócio</h2>
-      <p class="sub">Escolha por onde começar. Tudo pensado pra ser simples de usar e bonito de mostrar.</p>
+      <div class="eyebrow reveal">O que eu faço por você</div>
+      <h2 class="h2 reveal">Ferramentas pra cada parte do seu negócio</h2>
+      <p class="sub reveal">Escolha por onde começar. Tudo pensado pra ser simples de usar e bonito de mostrar.</p>
       <div class="grid">
-
-        <div class="card feat">
+        <div class="card feat reveal">
           <span class="tag novo">Novidade</span>
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg></div>
           <h3>Vitrines & Sites</h3>
           <p>Uma página bonita que mostra seus produtos, leva o cliente direto pro seu WhatsApp e ajuda a ser encontrada no Google. No lugar do linktree.</p>
           <a class="btn terra cta" href="https://wa.me/5521995764264?text=Oi!%20Quero%20uma%20vitrine%2Fsite%20pro%20meu%20neg%C3%B3cio" target="_blank" rel="noopener">Quero uma vitrine</a>
         </div>
-
-        <div class="card">
+        <div class="card reveal d1">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></div>
           <h3>Planilha de Precificação</h3>
           <p>Pare de adivinhar o preço. Saiba exatamente quanto cobrar pra ter lucro de verdade em cada peça.</p>
           <a class="link" href="/planilha">Conhecer a planilha →</a>
         </div>
-
-        <div class="card">
+        <div class="card reveal d2">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
           <h3>Simulador grátis</h3>
           <p>Em 2 minutos você descobre se o preço que cobra hoje dá lucro ou prejuízo. De graça, sem complicação.</p>
           <a class="link" href="/simular">Simular grátis →</a>
         </div>
-
-        <div class="card">
+        <div class="card reveal d3">
           <span class="tag breve">Em breve</span>
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
           <h3>Apps sob medida</h3>
           <p>Tem uma ideia de ferramenta que facilitaria a sua rotina? Em breve, apps simples feitos pro seu negócio. Me conta a sua.</p>
           <a class="link" href="https://wa.me/5521995764264?text=Oi!%20Tenho%20uma%20ideia%20de%20app%2Fferramenta" target="_blank" rel="noopener">Me contar a ideia →</a>
         </div>
-
       </div>
     </div>
   </section>
@@ -179,52 +201,48 @@
   <!-- EXEMPLOS -->
   <section class="exemplos" id="exemplos">
     <div class="wrap">
-      <div class="eyebrow">Portfólio</div>
-      <h2 class="h2">Exemplos de vitrines e sites que eu crio</h2>
-      <p class="sub">Cada negócio tem a sua cara. Veja alguns exemplos de páginas que montei — e imagine a sua.</p>
+      <div class="eyebrow reveal">Portfólio</div>
+      <h2 class="h2 reveal">Exemplos de vitrines e sites que eu crio</h2>
+      <p class="sub reveal">Cada negócio tem a sua cara. Veja alguns exemplos de páginas que montei — e imagine a sua.</p>
       <div class="ex">
-
-        <div class="e">
+        <div class="e reveal">
           <div class="browserbar"><i></i><i></i><i></i><span class="u">ateliersheilaamorim.com.br</span></div>
-          <div class="preview p1">Ateliê Sheila Amorim</div>
+          <!-- TROCAR por print real: <div class="shot"><img src="./img/print-sheila.jpg"></div> -->
+          <div class="mock m1"><div class="mn">Ateliê Sheila Amorim</div><div class="mt">Loja de crochê · catálogo + carrinho</div><div class="row"><b></b><b></b><b></b></div></div>
           <div class="info">
             <h3>Ateliê Sheila Amorim</h3>
             <p>Loja completa de crochê: catálogo, carrinho, depoimentos e WhatsApp. O exemplo mais completo.</p>
             <a class="link" href="https://www.ateliersheilaamorim.com.br" target="_blank" rel="noopener">Ver o site →</a>
           </div>
         </div>
-
-        <div class="e">
+        <div class="e reveal d1">
           <div class="browserbar"><i></i><i></i><i></i><span class="u">modelo · vitrine de ateliê</span></div>
-          <div class="preview p1">Ateliê Flor de Lis</div>
+          <!-- TROCAR por print real: <div class="shot"><img src="./img/print-conceito.jpg"></div> -->
+          <div class="mock m2"><div class="mn">Ateliê Flor de Lis</div><div class="mt">Velas & sabonetes artesanais</div><div class="row"><b></b><b></b><b></b></div></div>
           <div class="info">
             <h3>Ateliê Flor de Lis <span style="font-size:.72rem;color:var(--cinza);font-weight:600">(modelo)</span></h3>
             <p>Conceito de vitrine pra quem é artesã: produtos, "sobre" e botão direto pro WhatsApp. Um exemplo do que eu crio.</p>
             <a class="link" href="conceito-atelie.html" target="_blank" rel="noopener">Ver o modelo →</a>
           </div>
         </div>
-
-        <div class="e">
+        <div class="e reveal d2">
           <div class="browserbar"><i></i><i></i><i></i><span class="u">o-seu-negocio.com.br</span></div>
-          <div class="preview p3">O seu aqui ✦</div>
+          <div class="mock m3"><div class="mn">O seu aqui ✦</div></div>
           <div class="info">
             <h3>O seu negócio aqui</h3>
             <p>Me chama no WhatsApp e eu monto um exemplo da sua vitrine — sem compromisso, pra você ver como ficaria.</p>
             <a class="link" href="https://wa.me/5521995764264?text=Oi!%20Quero%20um%20exemplo%20da%20minha%20vitrine" target="_blank" rel="noopener">Quero o meu →</a>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- SOBRE A IVANA -->
+  <!-- SOBRE -->
   <section class="sobre">
     <div class="wrap">
-      <div class="photo">
-        <img src="./img/ivana-sobre.jpg" alt="Ivana no seu ateliê" />
-      </div>
-      <div class="txt">
+      <div class="photo reveal"><img src="./img/ivana-sobre.jpg" alt="Ivana no seu ateliê" /></div>
+      <div class="txt reveal d1">
         <div class="eyebrow" style="text-align:left">Prazer, sou a Ivana</div>
         <h2>Quem está por trás disso</h2>
         <p>Comecei meu ateliê aos 55 anos e sei na pele como é transformar talento em negócio — e como a falta de uma ferramenta simples trava a gente.</p>
@@ -237,11 +255,11 @@
   <!-- CTA FINAL -->
   <section class="final">
     <div class="wrap">
-      <div class="eyebrow" style="color:var(--dourado)">Bora começar?</div>
-      <h2>O seu ateliê merece ser visto</h2>
-      <p>Me chama no WhatsApp e a gente conversa sobre o que faz mais sentido pra você agora. Sem compromisso.</p>
-      <a class="btn zap" href="https://wa.me/5521995764264?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="">Falar com a Ivana</a>
-      <div class="contatos">
+      <div class="eyebrow reveal" style="color:var(--dourado)">Bora começar?</div>
+      <h2 class="reveal">O seu ateliê merece ser visto</h2>
+      <p class="reveal">Me chama no WhatsApp e a gente conversa sobre o que faz mais sentido pra você agora. Sem compromisso.</p>
+      <a class="btn zap reveal" href="https://wa.me/5521995764264?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="">Falar com a Ivana</a>
+      <div class="contatos reveal">
         <span>📱 <a href="https://wa.me/5521995764264" target="_blank" rel="noopener">(21) 99576-4264</a></span>
         <span>✉️ <a href="mailto:meuatelielucrativo@gmail.com">meuatelielucrativo@gmail.com</a></span>
         <span>📷 <a href="https://instagram.com/meu.atelie.lucrativo" target="_blank" rel="noopener">@meu.atelie.lucrativo</a></span>
@@ -256,5 +274,24 @@
 
   <a class="zap-float" href="https://wa.me/5521995764264?text=Oi!%20Vim%20pelo%20site%20e%20quero%20saber%20mais" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="WhatsApp"></a>
 
+<script>
+  const rev = document.querySelectorAll(".reveal");
+  if("IntersectionObserver" in window){
+    const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }); }, {threshold:.14});
+    rev.forEach(el=>io.observe(el));
+  } else { rev.forEach(el=>el.classList.add("in")); }
+  const heroPhoto = document.getElementById("heroPhoto");
+  const heroTilt = document.getElementById("heroTilt");
+  window.addEventListener("scroll", ()=>{ const y=window.scrollY; if(y<700 && heroPhoto) heroPhoto.style.transform="translateY("+(y*0.05)+"px)"; }, {passive:true});
+  if(heroTilt && window.matchMedia("(hover:hover)").matches){
+    const hero = heroPhoto.closest(".hero");
+    hero.addEventListener("mousemove", (e)=>{
+      const r=hero.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+      heroTilt.style.transform="rotateY("+(px*8)+"deg) rotateX("+(-py*8)+"deg)";
+    });
+    hero.addEventListener("mouseleave", ()=>{ heroTilt.style.transform="rotateY(0) rotateX(0)"; });
+  }
+</script>
 </body>
 </html>
